@@ -1,0 +1,10 @@
+node_modules/
+*.tgz
+.DS_Store
+__pycache__/
+*.py[cod]
+.coverage
+.pytest_cache/
+.npmrc
+dist/
+release-artifacts/

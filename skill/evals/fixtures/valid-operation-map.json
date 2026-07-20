@@ -1,0 +1,489 @@
+{
+  "schema_version": "taskplan-pro.operation-map/v1",
+  "graph_id": "example-operation-map",
+  "graph_version": "1.0.0",
+  "status": "review",
+  "canonical_source": "evals/fixtures/valid-operation-map.json",
+  "concept_source": {
+    "path": "evals/fixtures/accepted-concept.md",
+    "sha256": "e114c7f67d8c49ff320575e137fd080ffc52861ac4a3f5b5749cb5934136e90c",
+    "sections": {
+      "C01": {
+        "id": "C01",
+        "title": "Capture a request",
+        "anchor": "c01-capture-a-request",
+        "required": true
+      },
+      "C02": {
+        "id": "C02",
+        "title": "Review the result",
+        "anchor": "c02-review-the-result",
+        "required": true
+      }
+    }
+  },
+  "blocks": [
+    {
+      "id": "B01",
+      "order": 1,
+      "title": "Capture request",
+      "implements": [
+        "C01"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "main_output": "Versioned intake record",
+      "next_block": "B02"
+    },
+    {
+      "id": "B02",
+      "order": 2,
+      "title": "Review result",
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "main_output": "Accepted reviewed result",
+      "next_block": null
+    }
+  ],
+  "nodes": [
+    {
+      "id": "B01",
+      "type": "block",
+      "title": "Capture request",
+      "parent_id": null,
+      "implements": [
+        "C01"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Preserve the source request as a versioned intake record.",
+        "where": "Inside the project discovery workspace.",
+        "when": "When a verified user request enters the workflow.",
+        "why": "Prevent later interpretation from replacing the original user intent.",
+        "input": "The original user request and its provenance.",
+        "input_requirements": "The source is readable, attributable and free of copied secrets.",
+        "expected_output": "A versioned intake record with source hash.",
+        "success_criteria": "The owner recognizes the request and the source hash resolves.",
+        "failure_criteria": "The source is missing, altered or contains prohibited sensitive data.",
+        "failure_action": "Return to request capture and repair provenance or sanitation.",
+        "executor": "Discovery agent.",
+        "reviewer": "Provenance reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Filesystem and accepted concept.",
+        "evidence": "Intake artifact, source hash and owner confirmation.",
+        "next_transition": "Send the intake record to the capture readiness gate."
+      }
+    },
+    {
+      "id": "B01-S01",
+      "type": "step",
+      "title": "Record source intent",
+      "parent_id": "B01",
+      "implements": [
+        "C01"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Preserve the source request as a versioned intake record.",
+        "where": "Inside the project discovery workspace.",
+        "when": "When a verified user request enters the workflow.",
+        "why": "Prevent later interpretation from replacing the original user intent.",
+        "input": "The original user request and its provenance.",
+        "input_requirements": "The source is readable, attributable and free of copied secrets.",
+        "expected_output": "A versioned intake record with source hash.",
+        "success_criteria": "The owner recognizes the request and the source hash resolves.",
+        "failure_criteria": "The source is missing, altered or contains prohibited sensitive data.",
+        "failure_action": "Return to request capture and repair provenance or sanitation.",
+        "executor": "Discovery agent.",
+        "reviewer": "Provenance reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Filesystem and accepted concept.",
+        "evidence": "Intake artifact, source hash and owner confirmation.",
+        "next_transition": "Send the intake record to the capture readiness gate."
+      }
+    },
+    {
+      "id": "B01-A01",
+      "type": "artifact",
+      "title": "Intake record",
+      "parent_id": "B01",
+      "implements": [
+        "C01"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "artifact_contract": {
+        "producer": "B01-S01",
+        "reviewer": "Provenance reviewer",
+        "consumers": [
+          "B01-G01",
+          "B02"
+        ]
+      }
+    },
+    {
+      "id": "B01-G01",
+      "type": "gate",
+      "title": "Capture ready",
+      "parent_id": "B01",
+      "implements": [
+        "C01"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Preserve the source request as a versioned intake record.",
+        "where": "Inside the project discovery workspace.",
+        "when": "When a verified user request enters the workflow.",
+        "why": "Prevent later interpretation from replacing the original user intent.",
+        "input": "The original user request and its provenance.",
+        "input_requirements": "The source is readable, attributable and free of copied secrets.",
+        "expected_output": "A versioned intake record with source hash.",
+        "success_criteria": "The owner recognizes the request and the source hash resolves.",
+        "failure_criteria": "The source is missing, altered or contains prohibited sensitive data.",
+        "failure_action": "Return to request capture and repair provenance or sanitation.",
+        "executor": "Discovery agent.",
+        "reviewer": "Provenance reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Filesystem and accepted concept.",
+        "evidence": "Intake artifact, source hash and owner confirmation.",
+        "next_transition": "Send the intake record to the capture readiness gate."
+      }
+    },
+    {
+      "id": "B01-F01",
+      "type": "failure",
+      "title": "Invalid source",
+      "parent_id": "B01",
+      "implements": [
+        "C01"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Preserve the source request as a versioned intake record.",
+        "where": "Inside the project discovery workspace.",
+        "when": "When a verified user request enters the workflow.",
+        "why": "Prevent later interpretation from replacing the original user intent.",
+        "input": "The original user request and its provenance.",
+        "input_requirements": "The source is readable, attributable and free of copied secrets.",
+        "expected_output": "A versioned intake record with source hash.",
+        "success_criteria": "The owner recognizes the request and the source hash resolves.",
+        "failure_criteria": "The source is missing, altered or contains prohibited sensitive data.",
+        "failure_action": "Return to request capture and repair provenance or sanitation.",
+        "executor": "Discovery agent.",
+        "reviewer": "Provenance reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Filesystem and accepted concept.",
+        "evidence": "Intake artifact, source hash and owner confirmation.",
+        "next_transition": "Send the intake record to the capture readiness gate."
+      }
+    },
+    {
+      "id": "B02",
+      "type": "block",
+      "title": "Review result",
+      "parent_id": null,
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Validate the intake against the accepted concept and close the review.",
+        "where": "Inside the local review workspace.",
+        "when": "After the capture block produces an accepted intake record.",
+        "why": "Prove the request can proceed without losing concept traceability.",
+        "input": "Accepted intake record and concept sections C01 and C02.",
+        "input_requirements": "The intake hash is valid and the concept version is current.",
+        "expected_output": "A reviewed result and explicit completion disposition.",
+        "success_criteria": "The review gate accepts traceability and produces the final result.",
+        "failure_criteria": "Traceability is missing or the intake contradicts the accepted concept.",
+        "failure_action": "Return to the review step or upstream capture step named by the finding.",
+        "executor": "Review agent.",
+        "reviewer": "Independent reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Canonical operation graph and local review workspace.",
+        "evidence": "Gate result, review comments and accepted disposition.",
+        "next_transition": "Close the example workflow at the terminal node."
+      }
+    },
+    {
+      "id": "B02-S01",
+      "type": "step",
+      "title": "Review traceability",
+      "parent_id": "B02",
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Validate the intake against the accepted concept and close the review.",
+        "where": "Inside the local review workspace.",
+        "when": "After the capture block produces an accepted intake record.",
+        "why": "Prove the request can proceed without losing concept traceability.",
+        "input": "Accepted intake record and concept sections C01 and C02.",
+        "input_requirements": "The intake hash is valid and the concept version is current.",
+        "expected_output": "A reviewed result and explicit completion disposition.",
+        "success_criteria": "The review gate accepts traceability and produces the final result.",
+        "failure_criteria": "Traceability is missing or the intake contradicts the accepted concept.",
+        "failure_action": "Return to the review step or upstream capture step named by the finding.",
+        "executor": "Review agent.",
+        "reviewer": "Independent reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Canonical operation graph and local review workspace.",
+        "evidence": "Gate result, review comments and accepted disposition.",
+        "next_transition": "Close the example workflow at the terminal node."
+      }
+    },
+    {
+      "id": "B02-A01",
+      "type": "artifact",
+      "title": "Reviewed result",
+      "parent_id": "B02",
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "artifact_contract": {
+        "producer": "B02-S01",
+        "reviewer": "Independent reviewer",
+        "consumers": [
+          "B02-G01",
+          "END"
+        ]
+      }
+    },
+    {
+      "id": "B02-G01",
+      "type": "gate",
+      "title": "Review accepted",
+      "parent_id": "B02",
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Validate the intake against the accepted concept and close the review.",
+        "where": "Inside the local review workspace.",
+        "when": "After the capture block produces an accepted intake record.",
+        "why": "Prove the request can proceed without losing concept traceability.",
+        "input": "Accepted intake record and concept sections C01 and C02.",
+        "input_requirements": "The intake hash is valid and the concept version is current.",
+        "expected_output": "A reviewed result and explicit completion disposition.",
+        "success_criteria": "The review gate accepts traceability and produces the final result.",
+        "failure_criteria": "Traceability is missing or the intake contradicts the accepted concept.",
+        "failure_action": "Return to the review step or upstream capture step named by the finding.",
+        "executor": "Review agent.",
+        "reviewer": "Independent reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Canonical operation graph and local review workspace.",
+        "evidence": "Gate result, review comments and accepted disposition.",
+        "next_transition": "Close the example workflow at the terminal node."
+      }
+    },
+    {
+      "id": "B02-F01",
+      "type": "failure",
+      "title": "Traceability rejected",
+      "parent_id": "B02",
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "designed_only",
+      "implementation_evidence": [],
+      "operational_fields": {
+        "what": "Validate the intake against the accepted concept and close the review.",
+        "where": "Inside the local review workspace.",
+        "when": "After the capture block produces an accepted intake record.",
+        "why": "Prove the request can proceed without losing concept traceability.",
+        "input": "Accepted intake record and concept sections C01 and C02.",
+        "input_requirements": "The intake hash is valid and the concept version is current.",
+        "expected_output": "A reviewed result and explicit completion disposition.",
+        "success_criteria": "The review gate accepts traceability and produces the final result.",
+        "failure_criteria": "Traceability is missing or the intake contradicts the accepted concept.",
+        "failure_action": "Return to the review step or upstream capture step named by the finding.",
+        "executor": "Review agent.",
+        "reviewer": "Independent reviewer.",
+        "acceptor": "Product owner.",
+        "resources": "Canonical operation graph and local review workspace.",
+        "evidence": "Gate result, review comments and accepted disposition.",
+        "next_transition": "Close the example workflow at the terminal node."
+      }
+    },
+    {
+      "id": "END",
+      "type": "terminal",
+      "title": "Accepted result",
+      "parent_id": null,
+      "implements": [
+        "C02"
+      ],
+      "implementation_status": "not_applicable",
+      "implementation_evidence": []
+    }
+  ],
+  "edges": [
+    {
+      "id": "E-001",
+      "source": "B01",
+      "relation": "contains",
+      "target": "B01-S01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-002",
+      "source": "B01",
+      "relation": "contains",
+      "target": "B01-A01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-003",
+      "source": "B01",
+      "relation": "contains",
+      "target": "B01-G01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-004",
+      "source": "B01",
+      "relation": "contains",
+      "target": "B01-F01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-005",
+      "source": "B02",
+      "relation": "contains",
+      "target": "B02-S01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-006",
+      "source": "B02",
+      "relation": "contains",
+      "target": "B02-A01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-007",
+      "source": "B02",
+      "relation": "contains",
+      "target": "B02-G01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-008",
+      "source": "B02",
+      "relation": "contains",
+      "target": "B02-F01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-009",
+      "source": "B01-S01",
+      "relation": "produces",
+      "target": "B01-A01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-010",
+      "source": "B01-A01",
+      "relation": "validated_by",
+      "target": "B01-G01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-011",
+      "source": "B01-G01",
+      "relation": "on_success",
+      "target": "B02",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-012",
+      "source": "B01-G01",
+      "relation": "on_failure",
+      "target": "B01-F01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-013",
+      "source": "B01-F01",
+      "relation": "returns_to",
+      "target": "B01-S01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-014",
+      "source": "B01",
+      "relation": "on_success",
+      "target": "B02",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-015",
+      "source": "B02-S01",
+      "relation": "produces",
+      "target": "B02-A01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-016",
+      "source": "B02-A01",
+      "relation": "validated_by",
+      "target": "B02-G01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-017",
+      "source": "B02-G01",
+      "relation": "on_success",
+      "target": "END",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-018",
+      "source": "B02-G01",
+      "relation": "on_failure",
+      "target": "B02-F01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    },
+    {
+      "id": "E-019",
+      "source": "B02-F01",
+      "relation": "returns_to",
+      "target": "B02-S01",
+      "origin": "example-fixture",
+      "reverse_label": "reverse"
+    }
+  ],
+  "coverage_exemptions": []
+}

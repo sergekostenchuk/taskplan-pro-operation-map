@@ -1,0 +1,4 @@
+interface:
+  display_name: "TASKPLAN-PRO operation map"
+  short_description: "Concept-to-operation graph and review HTML"
+  default_prompt: "Use $taskplan-pro-operation-map to turn the accepted concept into a traceable canonical operation graph, stop on semantic readiness gaps, and generate local Markdown and multi-reviewer HTML projections."

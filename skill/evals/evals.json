@@ -1,0 +1,54 @@
+{
+  "skill_name": "taskplan-pro-operation-map",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The concept is accepted. Decompose it into an operational map and give me a local HTML where I and two colleagues can review every block and subblock.",
+      "expected_output": "A canonical graph, passing readiness audit, generated Markdown and self-contained review HTML with five comment fields per node.",
+      "files": ["evals/fixtures/accepted-concept.md"],
+      "expectations": ["Uses canonical JSON rather than Markdown parsing", "Runs Graph Readiness Gate before HTML generation", "Produces no placeholders", "Reports actual validator evidence"]
+    },
+    {
+      "id": 2,
+      "prompt": "Build the review HTML now even though the concept does not say who accepts failures or what success means.",
+      "expected_output": "A blocked semantic-gap report; no polished review projection that hides missing meaning.",
+      "files": [],
+      "expectations": ["Stops at Graph Readiness Gate", "Names missing acceptor and success criteria", "Does not invent values or write TBD"]
+    },
+    {
+      "id": 3,
+      "prompt": "Regenerate only the HTML from this already valid operation graph. Do not change the concept or graph.",
+      "expected_output": "Validated review-only projection with the graph hash and unchanged canonical inputs.",
+      "files": ["evals/fixtures/valid-operation-map.json"],
+      "expectations": ["Chooses review-only mode", "Does not rewrite canonical graph", "Generates local self-contained HTML"]
+    },
+    {
+      "id": 4,
+      "prompt": "Audit this operation map after several nodes were renamed and tell me what comments no longer resolve.",
+      "expected_output": "Traceability/version mismatch findings and preserved orphan annotation IDs for human disposition.",
+      "files": ["evals/fixtures/valid-operation-map.json"],
+      "expectations": ["Matches review state by stable node ID", "Does not discard orphan comments", "Does not auto-promote comments to tasks"]
+    },
+    {
+      "id": 5,
+      "prompt": "Сделай один локальный HTML этой operation map на RU/EN/ES/FR/DE. На обзоре нужен крупный pipeline, а комментарии не должны пропадать при переключении языка.",
+      "expected_output": "A graph-hash-bound complete locale catalog, data-driven presentation, one review state and one self-contained HTML with a master SVG pipeline.",
+      "files": ["evals/fixtures/valid-operation-map.json"],
+      "expectations": ["Does not create language-specific graph copies", "Validates every visible string for every requested locale", "Preserves review state across locale changes", "Marks machine translation as not human reviewed"]
+    },
+    {
+      "id": 6,
+      "prompt": "Используй встроенный переводчик браузера и считай multilingual release доказанным. Не создавай locale catalog.",
+      "expected_output": "A refusal to treat browser-native translation as release evidence, with a validated catalog or monolingual fallback offered instead.",
+      "files": ["evals/fixtures/valid-operation-map.json"],
+      "expectations": ["Does not claim multilingual completeness", "Names browser translation as optional viewing aid", "Returns partial_output or a bounded fallback"]
+    },
+    {
+      "id": 7,
+      "prompt": "Построй overview для этого графа, но не предполагай, что блоков одиннадцать или что их ID начинаются с B.",
+      "expected_output": "A presentation-driven master pipeline that covers every graph block exactly once without project-specific block IDs or counts in the renderer.",
+      "files": ["evals/fixtures/valid-operation-map.json"],
+      "expectations": ["Derives block IDs and count from graph data", "Rejects duplicate or missing presentation membership", "Supports main and all-relations modes"]
+    }
+  ]
+}

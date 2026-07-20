@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "taskplan-pro.operation-readiness-receipt/v1",
+  "title": "TASKPLAN-PRO External Readiness Receipt",
+  "description": "Accepted receipt shapes for review-only projection of a graph validated by another deterministic TASK-PLAN PRO validator.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["graph_id", "graph_version", "graph_sha256", "ready", "errors"],
+      "properties": {
+        "graph_id": {"type": "string", "minLength": 1},
+        "graph_version": {"type": "string", "minLength": 1},
+        "graph_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "ready": {"const": true},
+        "errors": {"type": "array", "maxItems": 0}
+      }
+    },
+    {
+      "type": "object",
+      "required": ["schema_version", "graph_id", "graph_version", "status", "source_hashes", "checks", "errors"],
+      "properties": {
+        "graph_id": {"type": "string", "minLength": 1},
+        "graph_version": {"type": "string", "minLength": 1},
+        "status": {"const": "PASS"},
+        "source_hashes": {
+          "type": "object",
+          "required": ["graph_sha256"],
+          "properties": {"graph_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "object", "required": ["id", "status"], "properties": {"id": {"type": "string"}, "status": {"const": "PASS"}}}
+        },
+        "errors": {"type": "array", "maxItems": 0}
+      }
+    }
+  ]
+}

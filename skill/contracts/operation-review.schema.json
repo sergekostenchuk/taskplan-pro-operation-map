@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "taskplan-pro.operation-review/v1",
+  "type": "object",
+  "required": ["schema_version", "graph_id", "graph_version", "graph_sha256", "ui_locale", "reviewer_names", "annotations"],
+  "properties": {
+    "schema_version": {"const": "taskplan-pro.operation-review/v1"},
+    "graph_id": {"type": "string"}, "graph_version": {"type": "string"}, "graph_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "ui_locale": {"enum": ["ru", "en", "es", "fr", "de"]},
+    "updated_at": {"type": ["string", "null"]},
+    "reviewer_names": {"type": "object", "required": ["owner", "reviewer_1", "reviewer_2"], "properties": {"owner": {"type": "string"}, "reviewer_1": {"type": "string"}, "reviewer_2": {"type": "string"}}},
+    "annotations": {"type": "object", "additionalProperties": {"type": "object", "required": ["owner_observation", "owner_question", "owner_proposal", "reviewer_1", "reviewer_2", "status"], "properties": {
+      "owner_observation": {"type": "string"}, "owner_question": {"type": "string"}, "owner_proposal": {"type": "string"}, "reviewer_1": {"type": "string"}, "reviewer_2": {"type": "string"},
+      "status": {"enum": ["unreviewed", "questions", "discussing", "decision_made", "change_required", "change_applied", "closed"]}, "updated_at": {"type": ["string", "null"]}
+    }}}
+  }
+}

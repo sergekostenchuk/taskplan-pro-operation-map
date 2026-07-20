@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "taskplan-pro.operation-map/v1",
+  "title": "TASKPLAN-PRO Operation Map",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "graph_id", "graph_version", "status", "canonical_source", "concept_source", "blocks", "nodes", "edges", "coverage_exemptions"],
+  "properties": {
+    "schema_version": {"const": "taskplan-pro.operation-map/v1"},
+    "graph_id": {"type": "string", "minLength": 1},
+    "graph_version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "review", "ready", "superseded"]},
+    "canonical_source": {"type": "string", "minLength": 1},
+    "concept_source": {"$ref": "#/$defs/conceptSource"},
+    "blocks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/block"}},
+    "nodes": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/node"}},
+    "edges": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/edge"}},
+    "coverage_exemptions": {"type": "array", "items": {"$ref": "#/$defs/exemption"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "strings": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "implementationStatus": {"enum": ["designed_only", "partially_implemented", "implemented", "not_applicable"]},
+    "conceptSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "sections"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "sections": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/conceptSection"}}
+      }
+    },
+    "conceptSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "anchor", "required"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "anchor": {"type": "string", "minLength": 1},
+        "required": {"type": "boolean"}
+      }
+    },
+    "block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "order", "title", "implements", "implementation_status", "implementation_evidence", "main_output", "next_block"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "order": {"type": "integer", "minimum": 1},
+        "title": {"type": "string", "minLength": 1},
+        "implements": {"$ref": "#/$defs/strings"},
+        "implementation_status": {"$ref": "#/$defs/implementationStatus"},
+        "implementation_evidence": {"$ref": "#/$defs/strings"},
+        "main_output": {"type": "string", "minLength": 1},
+        "next_block": {"type": ["string", "null"]}
+      }
+    },
+    "operationalFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["what", "where", "when", "why", "input", "input_requirements", "expected_output", "success_criteria", "failure_criteria", "failure_action", "executor", "reviewer", "acceptor", "resources", "evidence", "next_transition"],
+      "properties": {
+        "what": {"type": "string", "minLength": 1}, "where": {"type": "string", "minLength": 1}, "when": {"type": "string", "minLength": 1}, "why": {"type": "string", "minLength": 1},
+        "input": {"type": "string", "minLength": 1}, "input_requirements": {"type": "string", "minLength": 1}, "expected_output": {"type": "string", "minLength": 1},
+        "success_criteria": {"type": "string", "minLength": 1}, "failure_criteria": {"type": "string", "minLength": 1}, "failure_action": {"type": "string", "minLength": 1},
+        "executor": {"type": "string", "minLength": 1}, "reviewer": {"type": "string", "minLength": 1}, "acceptor": {"type": "string", "minLength": 1},
+        "resources": {"type": "string", "minLength": 1}, "evidence": {"type": "string", "minLength": 1}, "next_transition": {"type": "string", "minLength": 1}
+      }
+    },
+    "artifactContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["producer", "reviewer", "consumers"],
+      "properties": {"producer": {"type": "string", "minLength": 1}, "reviewer": {"type": "string", "minLength": 1}, "consumers": {"$ref": "#/$defs/strings"}}
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "title", "parent_id", "implements", "implementation_status", "implementation_evidence"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "type": {"enum": ["block", "step", "artifact", "gate", "decision", "failure", "terminal", "external_reference"]},
+        "title": {"type": "string", "minLength": 1},
+        "parent_id": {"type": ["string", "null"]},
+        "implements": {"$ref": "#/$defs/strings"},
+        "implementation_status": {"$ref": "#/$defs/implementationStatus"},
+        "implementation_evidence": {"$ref": "#/$defs/strings"},
+        "operational_fields": {"$ref": "#/$defs/operationalFields"},
+        "artifact_contract": {"$ref": "#/$defs/artifactContract"}
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "relation", "target", "origin", "reverse_label"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1}, "source": {"type": "string", "minLength": 1}, "target": {"type": "string", "minLength": 1},
+        "relation": {"enum": ["contains", "on_success", "on_failure", "returns_to", "produces", "consumed_by", "validated_by", "accepted_by", "unblocks", "conditionally_unblocks", "implements", "realizes"]},
+        "origin": {"type": "string", "minLength": 1}, "reverse_label": {"type": "string", "minLength": 1}, "condition": {"type": "string", "minLength": 1}
+      }
+    },
+    "exemption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concept_section_id", "reason", "owner"],
+      "properties": {"concept_section_id": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1}, "owner": {"type": "string", "minLength": 1}}
+    }
+  }
+}

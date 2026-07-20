@@ -1,0 +1,10 @@
+{
+  "skill_id": "taskplan-pro-operation-map",
+  "display_name": "TASKPLAN-PRO-operation-map",
+  "version": "0.2.0",
+  "status": "release_candidate",
+  "runtime_dependencies": ["filesystem", "python3>=3.10"],
+  "network_required": false,
+  "supported_ui_locales": ["ru", "en", "es", "fr", "de"],
+  "review_interval_days": 45
+}

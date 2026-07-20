@@ -1,0 +1,52 @@
+{
+  "name": "taskplan-pro-operation-map",
+  "version": "0.2.0",
+  "description": "Local-first TASKPLAN PRO skill and CLI for machine-checkable product operation maps.",
+  "keywords": [
+    "task-plan",
+    "llm",
+    "agent",
+    "product-development",
+    "operation-map",
+    "traceability",
+    "review-workspace"
+  ],
+  "homepage": "https://github.com/sergekostenchuk/taskplan-pro-operation-map#readme",
+  "bugs": {
+    "url": "https://github.com/sergekostenchuk/taskplan-pro-operation-map/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergekostenchuk/taskplan-pro-operation-map.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Serge Kostenchuk",
+  "type": "commonjs",
+  "bin": {
+    "taskplan-operation-map": "bin/taskplan-operation-map.js",
+    "taskplan-pro-operation-map": "bin/taskplan-operation-map.js"
+  },
+  "files": [
+    "bin/",
+    "skill/",
+    "!skill/**/__pycache__/**",
+    "!skill/**/*.py[cod]",
+    "docs/images/",
+    "README.md",
+    "README.ru.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs && python3 -m unittest discover -s skill/tests -p 'test_*.py'",
+    "test:cli": "node --test test/cli-smoke.test.mjs",
+    "test:surface": "node --test test/package-surface.test.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

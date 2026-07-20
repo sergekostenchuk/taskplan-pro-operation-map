@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    {"name": "filesystem", "category": "runtime_capability", "required": true, "used_for": "Read the accepted concept and write graph/projection artifacts."},
+    {"name": "python3", "category": "command", "command": "python3", "required": true, "minimum": "3.10", "used_for": "Validate the graph and generate deterministic projections."},
+    {"name": "browser", "category": "runtime_capability", "required": false, "fallback": "manual_open_html", "used_for": "Optional visual verification of the self-contained HTML."},
+    {"name": "argostranslate", "category": "python_package", "required": false, "state_when_unverified": "manual_approval_required", "fallback": "prebuilt_locale_catalog", "used_for": "Optional offline translation adapter only."},
+    {"name": "ollama", "category": "command", "command": "ollama", "required": false, "state_when_unverified": "fallback", "fallback": "prebuilt_locale_catalog", "used_for": "Optional local-model translation adapter only."}
+  ],
+  "network_required": false,
+  "external_packages": ["argostranslate (optional, pinned approval required)"]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "taskplan-pro.operation-presentation/v1",
+  "title": "TASKPLAN-PRO Operation Map Presentation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "overview_groups"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "overview_groups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "block_ids", "labels"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "block_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "labels": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "feedback_transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "target"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "target": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
