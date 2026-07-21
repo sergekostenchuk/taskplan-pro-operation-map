@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2 — 2026-07-21
+
+- Replaced the custom non-commercial license with Business Source License 1.1.
+- Permitted non-commercial production use through the Additional Use Grant.
+- Set the Change Date to 2030-07-21 and the Change License to GPL-2.0-or-later.
+
 ## 0.2.1 — 2026-07-21
 
 - Clarified that the package is both a vendor-neutral agent skill and a

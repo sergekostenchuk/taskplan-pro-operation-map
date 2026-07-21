@@ -1,6 +1,6 @@
 {
   "name": "taskplan-pro-operation-map",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Vendor-neutral agent skill and standalone TASK-PLAN PRO module for machine-checkable product operation maps.",
   "keywords": [
     "task-plan",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/sergekostenchuk/taskplan-pro-operation-map.git"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "BUSL-1.1",
   "author": "Serge Kostenchuk",
   "type": "commonjs",
   "bin": {

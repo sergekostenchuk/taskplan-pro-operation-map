@@ -12,8 +12,9 @@ This repository contains the Operation Map skill, its deterministic local CLI,
 and its review workspace. It does **not** contain or claim to be the complete
 TASK-PLAN PRO product.
 
-This repository is source-available for non-commercial use. Commercial use
-requires prior written permission from the copyright holder. See [License](#license).
+This repository is licensed under the Business Source License 1.1. Non-commercial
+production use is permitted by the Additional Use Grant; commercial production
+use requires a separate license. See [License](#license).
 
 ## Where it fits
 
@@ -257,10 +258,11 @@ localization contracts, and the skill's Python implementation.
 
 Copyright © 2026 Serge Kostenchuk.
 
-Non-commercial use is permitted under the
-[TASKPLAN PRO Non-Commercial License 1.0](LICENSE). Commercial use—including
-internal use by a for-profit organization, paid client work, consulting, resale,
-hosting, SaaS, or inclusion in a commercial product—requires prior written
-permission from the copyright holder.
+The Licensed Work is distributed under the [Business Source License 1.1](LICENSE).
+The Additional Use Grant permits non-commercial production use. Commercial
+production use requires a separate license from the Licensor.
 
-This is **source-available software, not OSI-approved open-source software**.
+On 2030-07-21, or no later than the fourth anniversary of the first public
+distribution of this licensed version, the Licensed Work changes to
+GPL-2.0-or-later. Until then, BSL 1.1 is source-available but is not an
+OSI-approved open-source license.
