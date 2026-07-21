@@ -2,23 +2,45 @@
 
 [Русская версия](README.ru.md) · [npm](https://www.npmjs.com/package/taskplan-pro-operation-map) · [Security](SECURITY.md) · [License](LICENSE)
 
-TASKPLAN PRO Operation Map is a local-first agent skill and command-line tool
-that turns an accepted product concept into a machine-checkable operational
-graph. It makes the route from intent to release inspectable: every block,
-step, artifact, gate, and failure path has a stable identity, explicit input,
-expected output, success criteria, failure criteria, and recovery action.
+TASKPLAN PRO Operation Map is both a **vendor-neutral agent skill for Codex,
+Claude Code, and other compatible coding-agent environments** and a
+**standalone module of the broader TASK-PLAN PRO framework**. It turns an
+accepted product concept into a machine-checkable operational map of the
+complete product journey.
+
+This repository contains the Operation Map skill, its deterministic local CLI,
+and its review workspace. It does **not** contain or claim to be the complete
+TASK-PLAN PRO product.
 
 This repository is source-available for non-commercial use. Commercial use
 requires prior written permission from the copyright holder. See [License](#license).
 
-## What it does
+## Where it fits
+
+```mermaid
+flowchart LR
+    I["Product idea"] --> D["Discovery"]
+    D --> C["Accepted product concept"]
+    C --> O["TASKPLAN PRO<br/>Operation Map"]
+    O --> S["Technical specification"]
+    S --> F["Feature Preparation"]
+    F --> T["Code-first TASK-PLAN"]
+    T --> E["Implementation and acceptance"]
+    E --> P["Working product"]
+```
+
+This package implements only the highlighted Operation Map module. The other
+stages belong to the broader TASK-PLAN PRO architecture and are outside this
+package's current scope.
+
+## What the module does
 
 The tool creates one canonical JSON graph and derives human and UI projections
 from it. The graph can represent the complete product path:
 
 ```mermaid
 flowchart LR
-    I["Initial intent"] --> D["Discovery<br/>B01–B03"]
+    I["Product idea"] --> D["Discovery<br/>B01–B03"]
     D --> F["Definition<br/>B04–B06"]
     F --> E["Delivery<br/>B07–B09"]
     E --> A["Acceptance & release<br/>B10–B11"]
@@ -27,11 +49,10 @@ flowchart LR
     L --> I
 ```
 
-It is designed for product work where an LLM or a team of agents must not jump
-from a vague request straight into an oversized implementation task. It does
-not execute your entire project by itself. It provides the validated map,
-readiness evidence, review workspace, and skill instructions that an agent or
-orchestrator uses to plan and review the work.
+The module detects missing stages, unsupported transitions, incomplete
+success/failure contracts, orphaned outputs, and broken traceability before
+those defects reach the technical specification, TASK-PLAN, or code. It does
+not execute the entire project by itself.
 
 ## How the modules work
 
@@ -94,26 +115,12 @@ observation, discussion question, proposed solution, and comments from two
 reviewers. Review state stays local in the browser and can be exported as JSON
 or embedded in a saved standalone HTML file.
 
-## Why this is more than an LLM wiki or RAG
+## Relationship to project knowledge systems
 
-An LLM wiki preserves and retrieves project knowledge. RAG finds relevant
-fragments for a model. Both are useful, and this tool can consume their
-evidence. Neither, by itself, proves that a product path is complete or that
-an implementation task has an input, measurable output, gate, owner, failure
-route, and traceability to the accepted concept.
-
-TASKPLAN PRO Operation Map adds that operational layer:
-
-| LLM wiki / RAG | TASKPLAN PRO Operation Map |
-|---|---|
-| Retrieves relevant knowledge | Validates a connected execution model |
-| Organizes documents and context | Organizes blocks, steps, artifacts, gates, and failures |
-| Answers “what do we know?” | Answers “what happens next, why, and how is it accepted?” |
-| Can return incomplete or stale evidence | Emits explicit validation failures and source-bound receipts |
-| Primarily a knowledge interface | A reviewable contract between concept, agents, and UI |
-
-This is complementary infrastructure, not a replacement for a project wiki,
-RAG system, source control, tests, or human product judgment.
+Project documentation, wikis, and retrieval systems may supply evidence to the
+skill. They are neither the reason this module exists nor its replacement. The
+module's responsibility is narrower: prove the operational completeness and
+traceability of an accepted product concept before downstream development.
 
 ## Who it is for
 
@@ -158,10 +165,32 @@ Or run it without a global install:
 npx taskplan-pro-operation-map --help
 ```
 
-To use it as an agent skill, copy the published `skill/` directory into your
-agent runtime's skill directory and invoke `taskplan-pro-operation-map` by name.
-The exact skill-directory path depends on the host (Codex, Claude, or another
-compatible agent runtime); it is intentionally not hardcoded by this package.
+## Use as an agent skill
+
+The published `skill/` directory is the single canonical vendor-neutral skill
+bundle. Do not fork its instructions per vendor.
+
+- **Codex:** install the `skill/` directory as
+  `$CODEX_HOME/skills/taskplan-pro-operation-map` (Codex defaults
+  `$CODEX_HOME` to `~/.codex`). Invoke `$taskplan-pro-operation-map`.
+- **Claude Code:** install it as either the project skill
+  `.claude/skills/taskplan-pro-operation-map` or the personal skill
+  `~/.claude/skills/taskplan-pro-operation-map`. Invoke
+  `/taskplan-pro-operation-map` or let Claude select it from its description.
+- **Other compatible agents:** install the complete directory wherever that
+  host discovers Agent Skills-compatible bundles. The host must preserve
+  `SKILL.md`, `references/`, `contracts/`, and `scripts/` together and provide
+  local filesystem access plus Python 3.10 or newer.
+
+See [`docs/vendors/`](docs/vendors/) for vendor-specific installation,
+invocation, capability, and verification notes.
+
+## Real self-hosted example
+
+[`examples/self-hosted/`](examples/self-hosted/) contains a source-backed
+example in which the released module describes and validates its own workflow.
+It is explicitly not a fictional product scenario and not a claim that the
+complete TASK-PLAN PRO framework is implemented.
 
 ## Usage
 

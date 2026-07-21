@@ -1,0 +1,34 @@
+{
+  "schema_version": "taskplan-pro.example-provenance/v1",
+  "example_type": "self_hosted_real_module",
+  "fictional_scenario": false,
+  "subject": "taskplan-pro-operation-map",
+  "owner_authorized_at": "2026-07-21",
+  "sources": [
+    {
+      "path": "skill/SKILL.md",
+      "supports": ["C01", "C02", "C03", "C04"]
+    },
+    {
+      "path": "skill/references/concept-decomposition-contract.md",
+      "supports": ["C02"]
+    },
+    {
+      "path": "skill/references/graph-readiness-gate.md",
+      "supports": ["C02", "C04"]
+    },
+    {
+      "path": "skill/references/review-workspace-contract.md",
+      "supports": ["C03", "C04"]
+    },
+    {
+      "path": "skill/tests/test_operation_map.py",
+      "supports": ["C02", "C03", "C04"]
+    },
+    {
+      "path": "package.json",
+      "supports": ["C01", "C04"]
+    }
+  ],
+  "claim_boundary": "The example documents released module behavior only; it is not evidence that the complete TASK-PLAN PRO framework is implemented."
+}

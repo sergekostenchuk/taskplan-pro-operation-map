@@ -3,3 +3,4 @@
 .npmrc
 test/
 release-artifacts/
+examples/self-hosted/generated/

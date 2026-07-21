@@ -8,3 +8,4 @@ __pycache__/
 .npmrc
 dist/
 release-artifacts/
+examples/self-hosted/generated/

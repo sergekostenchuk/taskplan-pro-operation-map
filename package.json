@@ -1,7 +1,7 @@
 {
   "name": "taskplan-pro-operation-map",
   "version": "0.2.0",
-  "description": "Local-first TASKPLAN PRO skill and CLI for machine-checkable product operation maps.",
+  "description": "Vendor-neutral agent skill and standalone TASK-PLAN PRO module for machine-checkable product operation maps.",
   "keywords": [
     "task-plan",
     "llm",
@@ -31,7 +31,10 @@
     "skill/",
     "!skill/**/__pycache__/**",
     "!skill/**/*.py[cod]",
+    "examples/self-hosted/",
+    "!examples/self-hosted/generated/",
     "docs/images/",
+    "docs/vendors/",
     "README.md",
     "README.ru.md",
     "LICENSE",

@@ -1,0 +1,290 @@
+{
+  "schema_version": "taskplan-pro.operation-map/v1",
+  "graph_id": "taskplan-pro-operation-map-self-hosted",
+  "graph_version": "0.2.0",
+  "status": "ready",
+  "canonical_source": "examples/self-hosted/OPERATION-MAP.json",
+  "concept_source": {
+    "path": "examples/self-hosted/CONCEPT.md",
+    "sha256": "641454257e424f9202710d73612f07e7d3e9cb27fa06c7ce2233e6046c64a414",
+    "sections": {
+      "C01": {
+        "id": "C01",
+        "title": "Vendor-neutral agent skill and TASK-PLAN PRO module",
+        "anchor": "c01-vendor-neutral-agent-skill-and-task-plan-pro-module",
+        "required": true
+      },
+      "C02": {
+        "id": "C02",
+        "title": "Accepted concept to validated operation graph",
+        "anchor": "c02-accepted-concept-to-validated-operation-graph",
+        "required": true
+      },
+      "C03": {
+        "id": "C03",
+        "title": "Deterministic review projections",
+        "anchor": "c03-deterministic-review-projections",
+        "required": true
+      },
+      "C04": {
+        "id": "C04",
+        "title": "Evidence honesty and scope boundary",
+        "anchor": "c04-evidence-honesty-and-scope-boundary",
+        "required": true
+      }
+    }
+  },
+  "blocks": [
+    {
+      "id": "B01",
+      "order": 1,
+      "title": "Build and validate the operation graph",
+      "implements": ["C01", "C02", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": [
+        "skill/SKILL.md",
+        "skill/scripts/operation_map.py",
+        "skill/contracts/operation-map.schema.json",
+        "skill/tests/test_operation_map.py"
+      ],
+      "main_output": "Source-bound canonical operation graph and passing readiness audit",
+      "next_block": "B02"
+    },
+    {
+      "id": "B02",
+      "order": 2,
+      "title": "Generate and review deterministic projections",
+      "implements": ["C01", "C03", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": [
+        "skill/scripts/review_workspace.py",
+        "skill/references/review-workspace-contract.md",
+        "skill/tests/test_operation_map.py",
+        "package.json"
+      ],
+      "main_output": "Self-contained local review workspace and hash-bound build manifest",
+      "next_block": null
+    }
+  ],
+  "nodes": [
+    {
+      "id": "B01",
+      "type": "block",
+      "title": "Build and validate the operation graph",
+      "parent_id": null,
+      "implements": ["C01", "C02", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/scripts/operation_map.py", "skill/tests/test_operation_map.py"],
+      "operational_fields": {
+        "what": "A compatible coding agent decomposes an accepted concept into canonical graph data, and the CLI validates structure, meaning, traceability, routes, and source identity.",
+        "where": "The agent skill operates in the user's coding environment; deterministic validation runs locally through the packaged Python engine.",
+        "when": "This block starts after the product owner identifies and accepts the current concept version.",
+        "why": "It prevents attractive diagrams or oversized implementation tasks from hiding missing product meaning and broken transitions.",
+        "input": "An accepted product concept, a target graph path, repository evidence, and explicit output boundaries.",
+        "input_requirements": "The concept is readable, version-identifiable, owner-accepted, and free of unresolved meaning that only the owner can decide.",
+        "expected_output": "A canonical operation graph bound to the concept hash plus an audit with a deterministic readiness verdict.",
+        "success_criteria": "The validator exits zero, reports ready true, covers every required concept section, and finds no missing gate or failure route.",
+        "failure_criteria": "Validation finds a semantic gap, traceability gap, source mismatch, invalid route, unsupported implementation claim, or malformed graph.",
+        "failure_action": "Return only the affected graph fragment to the responsible agent or return an owner-owned semantic decision to the product owner.",
+        "executor": "Compatible coding agent using the TASKPLAN PRO Operation Map skill and local CLI.",
+        "reviewer": "Independent concept and graph reviewer.",
+        "acceptor": "Product owner for meaning and deterministic validator for structural readiness.",
+        "resources": "Published skill directory, Python 3.10 or newer, repository evidence, and operation-map contracts.",
+        "evidence": "Canonical graph hash, concept hash, readiness audit, validator exit code, and repository paths supporting implementation claims.",
+        "next_transition": "A passing readiness gate admits the exact graph bytes to deterministic projection generation."
+      }
+    },
+    {
+      "id": "B01-A01",
+      "type": "artifact",
+      "title": "Validated canonical operation graph",
+      "parent_id": "B01",
+      "implements": ["C02", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/contracts/operation-map.schema.json", "skill/scripts/operation_map.py"],
+      "artifact_contract": {
+        "producer": "B01",
+        "reviewer": "Independent concept and graph reviewer",
+        "consumers": ["B01-G01", "B02"]
+      }
+    },
+    {
+      "id": "B01-G01",
+      "type": "gate",
+      "title": "Graph readiness gate",
+      "parent_id": "B01",
+      "implements": ["C02", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/references/graph-readiness-gate.md", "skill/tests/test_operation_map.py"],
+      "operational_fields": {
+        "what": "Validate the exact canonical graph against the accepted concept and closed readiness rules.",
+        "where": "Inside the local operation-map validator before any review projection is generated.",
+        "when": "After graph authoring or any correction changes canonical graph bytes.",
+        "why": "Derived views must never make an incomplete or stale graph appear ready for downstream work.",
+        "input": "Canonical graph JSON, accepted concept bytes, declared section registry, and repository evidence references.",
+        "input_requirements": "Graph and concept hashes resolve, required fields are populated, and all referenced IDs and evidence paths are attributable.",
+        "expected_output": "A source-bound audit that reports ready true or lists exact blocking findings.",
+        "success_criteria": "The audit contains zero errors and the validation process exits with code zero.",
+        "failure_criteria": "Any structural, semantic, traceability, routing, evidence, or source-identity error remains.",
+        "failure_action": "Route the exact finding to B01-F01 and correct only the narrowest responsible source or request an owner decision.",
+        "executor": "Local deterministic operation-map validator.",
+        "reviewer": "Independent graph reviewer verifies that passing structure does not overstate product truth.",
+        "acceptor": "Readiness policy encoded by the packaged validator.",
+        "resources": "operation_map.py, operation-map schema, accepted concept, and canonical graph.",
+        "evidence": "Validator exit code and OPERATION-MAP-AUDIT.json bound to graph and concept hashes.",
+        "next_transition": "Success unblocks B02; failure opens B01-F01."
+      }
+    },
+    {
+      "id": "B01-F01",
+      "type": "failure",
+      "title": "Graph or concept readiness failure",
+      "parent_id": "B01",
+      "implements": ["C02", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/references/failure-modes.md", "skill/scripts/operation_map.py"],
+      "operational_fields": {
+        "what": "Preserve the failed verdict and identify the narrowest graph, evidence, or owner-decision boundary responsible for it.",
+        "where": "The audit report and agent handoff for the current graph revision.",
+        "when": "Whenever the readiness gate returns one or more blocking errors.",
+        "why": "A visible correction route prevents silent retries, invented product meaning, and unrelated scope expansion.",
+        "input": "Failed readiness audit with stable finding codes and affected paths.",
+        "input_requirements": "Findings retain graph identity, source hashes, and exact paths; no error is replaced by a generic retry request.",
+        "expected_output": "A bounded correction to the responsible graph fragment or an explicit unresolved owner decision.",
+        "success_criteria": "The responsible boundary is identified and the next validation run uses corrected, source-consistent inputs.",
+        "failure_criteria": "The agent invents missing semantics, changes unrelated scope, or retries without addressing the recorded finding.",
+        "failure_action": "Stop automated correction and return to B01 with the unresolved finding and required authority named.",
+        "executor": "Responsible coding agent or product owner according to the finding type.",
+        "reviewer": "Independent concept and graph reviewer.",
+        "acceptor": "Product owner for semantic corrections and validator for mechanical corrections.",
+        "resources": "Failed audit, canonical sources, repository evidence, and bounded correction policy.",
+        "evidence": "Before-and-after source hashes, resolved finding codes, and the subsequent validator result.",
+        "next_transition": "Return to B01 and rerun readiness after the bounded correction is complete."
+      }
+    },
+    {
+      "id": "B02",
+      "type": "block",
+      "title": "Generate and review deterministic projections",
+      "parent_id": null,
+      "implements": ["C01", "C03", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/scripts/review_workspace.py", "skill/tests/test_operation_map.py"],
+      "operational_fields": {
+        "what": "Generate Markdown, presentation, locale, build-manifest, and self-contained HTML projections from the admitted canonical graph.",
+        "where": "The CLI builds files locally; Codex, Claude Code, or another compatible agent may orchestrate the skill without changing projection semantics.",
+        "when": "This block starts only after B01 readiness passes for the exact graph and concept hashes.",
+        "why": "Humans and external interfaces need an inspectable view without creating a second source of product truth.",
+        "input": "Readiness-admitted graph, accepted concept, optional presentation data, locale catalog, and review state.",
+        "input_requirements": "Every derived input matches the graph hash and no comment or project-specific UI value is silently promoted into canonical meaning.",
+        "expected_output": "Deterministic projection files, a local multi-reviewer HTML workspace, and a build manifest with source and output hashes.",
+        "success_criteria": "All requested files are generated, deterministic checks pass, the HTML is self-contained, and comments remain bound to stable node IDs.",
+        "failure_criteria": "A hash mismatch, incomplete locale, invalid review state, projection drift, unsafe external dependency, or broken HTML interaction is found.",
+        "failure_action": "Route the exact projection defect to B02-F01; return to B01 only if the canonical graph or concept is responsible.",
+        "executor": "Local CLI and browser-native review workspace, orchestrated by a compatible coding agent when requested.",
+        "reviewer": "Independent projection and user-journey reviewer.",
+        "acceptor": "User or product owner reviewing the generated workspace and recorded build evidence.",
+        "resources": "Python standard library, modern browser, canonical graph, optional locale and presentation files.",
+        "evidence": "Generated artifacts, OPERATION-MAP-BUILD.json, test results, and optional browser smoke evidence.",
+        "next_transition": "A passing projection gate closes this module workflow and returns reviewed evidence to the broader product process."
+      }
+    },
+    {
+      "id": "B02-A01",
+      "type": "artifact",
+      "title": "Local review workspace and build manifest",
+      "parent_id": "B02",
+      "implements": ["C03", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/scripts/review_workspace.py", "skill/contracts/operation-build-manifest.schema.json"],
+      "artifact_contract": {
+        "producer": "B02",
+        "reviewer": "Independent projection and user-journey reviewer",
+        "consumers": ["B02-G01", "END"]
+      }
+    },
+    {
+      "id": "B02-G01",
+      "type": "gate",
+      "title": "Projection acceptance gate",
+      "parent_id": "B02",
+      "implements": ["C03", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/references/review-workspace-contract.md", "skill/tests/test_operation_map.py"],
+      "operational_fields": {
+        "what": "Verify generated files, source hashes, self-contained HTML behavior, and the separation between canonical graph and review annotations.",
+        "where": "The package test suite, build manifest, and optional desktop and mobile browser smoke run.",
+        "when": "After projection generation and before the result is presented as a usable review workspace.",
+        "why": "File existence alone does not prove that the graph is visible, navigable, local, portable, or bound to the correct source.",
+        "input": "Generated projections, build manifest, canonical graph, review-state contract, and test environment.",
+        "input_requirements": "Artifact hashes resolve, deterministic tests have run, and skipped browser checks remain explicitly marked as not run.",
+        "expected_output": "An accepted self-contained workspace or a bounded projection failure report.",
+        "success_criteria": "Tests pass, manifest hashes match, no remote asset is required, and review data remains separate from canonical graph meaning.",
+        "failure_criteria": "Any output is stale, missing, externally dependent, unsafe, visually unusable, or bound to another graph revision.",
+        "failure_action": "Open B02-F01 with the exact failed artifact or check and rebuild only after its source is corrected.",
+        "executor": "Package test runner and, when available, browser smoke runner.",
+        "reviewer": "Independent projection and user-journey reviewer.",
+        "acceptor": "User or product owner receiving the local review workspace.",
+        "resources": "Generated files, package tests, build manifest, and modern browser when visual verification is available.",
+        "evidence": "Passing test output, matching hashes, accepted build manifest, and explicit browser-check state.",
+        "next_transition": "Success reaches END; failure opens B02-F01."
+      }
+    },
+    {
+      "id": "B02-F01",
+      "type": "failure",
+      "title": "Projection or review-workspace failure",
+      "parent_id": "B02",
+      "implements": ["C03", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["skill/references/failure-modes.md", "skill/scripts/review_workspace.py"],
+      "operational_fields": {
+        "what": "Record a projection, localization, review-state, security, or visual failure without mutating canonical product meaning.",
+        "where": "The failed build output, test evidence, or browser-smoke report for B02.",
+        "when": "Whenever projection acceptance rejects generated artifacts or their observable behavior.",
+        "why": "Projection defects must be repaired at the presentation boundary unless evidence proves the canonical graph is responsible.",
+        "input": "Exact failed artifact, check result, source hashes, and reproduction command.",
+        "input_requirements": "The failure is reproducible and classified as projection-owned or explicitly routed upstream with evidence.",
+        "expected_output": "A bounded renderer, catalog, manifest, or review-state correction followed by regenerated projections.",
+        "success_criteria": "The responsible output is corrected, all affected projections are regenerated, and acceptance checks pass.",
+        "failure_criteria": "The correction edits generated output manually, changes canonical meaning, hides a skipped check, or introduces a remote dependency.",
+        "failure_action": "Return to B02 with the reproducible failure; escalate to B01 only for a proven canonical-source defect.",
+        "executor": "Responsible projection maintainer or compatible coding agent.",
+        "reviewer": "Independent projection and security reviewer.",
+        "acceptor": "User or product owner after regenerated evidence passes.",
+        "resources": "Build manifest, renderer source, locale catalog, tests, and browser evidence when available.",
+        "evidence": "Failure reproduction, corrected source diff, regenerated artifact hashes, and passing acceptance output.",
+        "next_transition": "Return to B02 and regenerate all affected projections from canonical inputs."
+      }
+    },
+    {
+      "id": "END",
+      "type": "terminal",
+      "title": "Reviewed operation-map module output",
+      "parent_id": null,
+      "implements": ["C01", "C03", "C04"],
+      "implementation_status": "implemented",
+      "implementation_evidence": ["package.json", "README.md", "skill/tests/test_operation_map.py"]
+    }
+  ],
+  "edges": [
+    {"id": "E001", "source": "B01", "relation": "contains", "target": "B01-A01", "origin": "C02", "reverse_label": "contained by"},
+    {"id": "E002", "source": "B01", "relation": "contains", "target": "B01-G01", "origin": "C02", "reverse_label": "contained by"},
+    {"id": "E003", "source": "B01", "relation": "contains", "target": "B01-F01", "origin": "C04", "reverse_label": "contained by"},
+    {"id": "E004", "source": "B01", "relation": "produces", "target": "B01-A01", "origin": "C02", "reverse_label": "produced by"},
+    {"id": "E005", "source": "B01-A01", "relation": "validated_by", "target": "B01-G01", "origin": "C02", "reverse_label": "validates"},
+    {"id": "E006", "source": "B01-G01", "relation": "on_success", "target": "B02", "origin": "C02", "reverse_label": "entered after success"},
+    {"id": "E007", "source": "B01-G01", "relation": "on_failure", "target": "B01-F01", "origin": "C04", "reverse_label": "entered after failure"},
+    {"id": "E008", "source": "B01-F01", "relation": "returns_to", "target": "B01", "origin": "C04", "reverse_label": "receives correction"},
+    {"id": "E009", "source": "B01", "relation": "on_success", "target": "B02", "origin": "C02", "reverse_label": "follows"},
+    {"id": "E010", "source": "B02", "relation": "contains", "target": "B02-A01", "origin": "C03", "reverse_label": "contained by"},
+    {"id": "E011", "source": "B02", "relation": "contains", "target": "B02-G01", "origin": "C03", "reverse_label": "contained by"},
+    {"id": "E012", "source": "B02", "relation": "contains", "target": "B02-F01", "origin": "C04", "reverse_label": "contained by"},
+    {"id": "E013", "source": "B02", "relation": "produces", "target": "B02-A01", "origin": "C03", "reverse_label": "produced by"},
+    {"id": "E014", "source": "B02-A01", "relation": "validated_by", "target": "B02-G01", "origin": "C03", "reverse_label": "validates"},
+    {"id": "E015", "source": "B02-G01", "relation": "on_success", "target": "END", "origin": "C03", "reverse_label": "entered after success"},
+    {"id": "E016", "source": "B02-G01", "relation": "on_failure", "target": "B02-F01", "origin": "C04", "reverse_label": "entered after failure"},
+    {"id": "E017", "source": "B02-F01", "relation": "returns_to", "target": "B02", "origin": "C04", "reverse_label": "receives correction"}
+  ],
+  "coverage_exemptions": []
+}

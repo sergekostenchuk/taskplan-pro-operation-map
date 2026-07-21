@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Clarified that the package is both a vendor-neutral agent skill and a
+  standalone module of TASK-PLAN PRO, not the complete framework repository.
+- Added Codex, Claude Code, and generic Agent Skills host installation guides
+  without forking the canonical skill bundle.
+- Added a real source-backed self-hosted example with concept provenance and a
+  validator-ready canonical graph.
+- Replaced the prominent LLM-wiki/RAG comparison with a narrow integration
+  boundary so secondary infrastructure no longer defines product positioning.
+
 ## 0.2.0 — 2026-07-20
 
 - Added a canonical operation-graph contract with deterministic validation.

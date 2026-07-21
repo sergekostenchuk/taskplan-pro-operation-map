@@ -6,6 +6,11 @@ compatibility: Requires local filesystem access and Python 3 standard library. B
 
 # TASKPLAN-PRO-operation-map
 
+This is one vendor-neutral agent skill for Codex, Claude Code, and other
+compatible coding-agent hosts, and a standalone module of TASK-PLAN PRO. Host
+integration may change discovery and invocation only; it must not fork this
+workflow or imply that this module is the complete TASK-PLAN PRO framework.
+
 Convert product meaning into a machine-checkable operating model, then generate review projections from that model. The skill has one user journey and two isolated phases. Never allow a polished visualization to hide an incomplete concept.
 
 ## Modes
