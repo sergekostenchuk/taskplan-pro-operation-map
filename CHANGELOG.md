@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1 — 2026-07-21
 
 - Clarified that the package is both a vendor-neutral agent skill and a
   standalone module of TASK-PLAN PRO, not the complete framework repository.

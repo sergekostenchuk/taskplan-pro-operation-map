@@ -117,7 +117,7 @@ class OperationMapTests(unittest.TestCase):
             presentation = json.loads((output / "OPERATION-MAP-PRESENTATION.json").read_text(encoding="utf-8"))
             self.assertEqual(presentation["overview_groups"][0]["block_ids"], ["B01", "B02"])
             manifest = json.loads((output / "OPERATION-MAP-BUILD.json").read_text(encoding="utf-8"))
-            self.assertEqual(manifest["builder_version"], "0.2.0")
+            self.assertEqual(manifest["builder_version"], "0.2.1")
             self.assertEqual(manifest["checks"]["graph_readiness"], "passed")
             self.assertEqual(manifest["checks"]["browser_smoke"], "not_run")
 

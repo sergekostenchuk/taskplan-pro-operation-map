@@ -21,7 +21,7 @@ from review_workspace import default_catalog, default_presentation
 
 
 SCHEMA_VERSION = "taskplan-pro.operation-map/v1"
-BUILDER_VERSION = "0.2.0"
+BUILDER_VERSION = "0.2.1"
 NODE_TYPES = {"block", "step", "artifact", "gate", "decision", "failure", "terminal", "external_reference"}
 STATUSES = {"designed_only", "partially_implemented", "implemented", "not_applicable"}
 RELATIONS = {"contains", "on_success", "on_failure", "returns_to", "produces", "consumed_by", "validated_by", "accepted_by", "unblocks", "conditionally_unblocks", "implements", "realizes"}
